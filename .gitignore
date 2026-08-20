@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.so
+results/
+*.db
+*.parquet
+.venv/
+*.log
