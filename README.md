@@ -1,7 +1,5 @@
 # Credit Risk / Fraud Detection (SQL + ML)
 
-**For:** Trainee Data Scientist, Equifax — closes SQL evidence gap + credit/fraud domain.
-
 ## Description
 A fraud/credit-risk modeling pipeline that uses a real SQL database for feature engineering and Python for modeling. A synthetic transaction stream (200k rows, 0.44% fraud) is loaded into SQLite; SQL builds merchant-level aggregates, hour buckets, and window features (LAG, ROW_NUMBER, rolling z-score supplement). A Python stage trains logistic regression and random forest models with class-imbalance handling, evaluates with precision/recall/ROC-AUC/PR-AUC (not accuracy), and logs feature importance. The project shows end-to-end SQL fluency, handling of highly imbalanced data, and production considerations like threshold tuning and drift monitoring.
 
@@ -50,7 +48,7 @@ Build: `python3 src/build_db.py` (creates `fraud.db`, runs `features.sql`, adds 
 > **Accuracy is deliberately not reported** — on 0.44% fraud, 99.5% accuracy is trivial (predict all 0). Precision/recall + ROC/PR-AUC are correct. RF feature importance: `merchant_fraud_rate` 34.5% > `amount_z` 19% > `amount` 18.7%.
 
 ## Production Considerations
-- Threshold tuning: trade FP (customer friction) vs FN (loss). Equifax context: FP blocks legitimate card → tune to precision at fixed recall.
+- Threshold tuning: trade FP (customer friction) vs FN (loss). In production, FP blocks legitimate transactions → tune to precision at fixed recall.
 - Drift: monitor `merchant_fraud_rate` shift + `amount_z` distribution; retrain monthly.
 - Imbalance: class_weight or SMOTE (shown before/after), calibrated probabilities.
 
