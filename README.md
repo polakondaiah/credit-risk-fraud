@@ -2,6 +2,9 @@
 
 **For:** Trainee Data Scientist, Equifax — closes SQL evidence gap + credit/fraud domain.
 
+## Description
+A fraud/credit-risk modeling pipeline that uses a real SQL database for feature engineering and Python for modeling. A synthetic transaction stream (200k rows, 0.44% fraud) is loaded into SQLite; SQL builds merchant-level aggregates, hour buckets, and window features (LAG, ROW_NUMBER, rolling z-score supplement). A Python stage trains logistic regression and random forest models with class-imbalance handling, evaluates with precision/recall/ROC-AUC/PR-AUC (not accuracy), and logs feature importance. The project shows end-to-end SQL fluency, handling of highly imbalanced data, and production considerations like threshold tuning and drift monitoring.
+
 ## Dataset
 Synthetic transaction data (Kaggle Credit Card Fraud–like, 0.44% fraud) — 200,000 rows, 887 frauds.
 Generated via `generate_data.py` (lognormal amounts, 7 merchant categories, hour/age effects, fraud biased to `online_electronics`, high amounts, night hours). Sorted by day/hour for realistic windows.
